@@ -23,8 +23,6 @@
 <body>
 <% include navbar %>
 <div class="container">
-        <div style="text-align: right;"><a href="https://www.adminschoice.com/crontab-quick-reference">Crontab Quick Reference</a></div>
-        <div style="text-align: right;"><a href="https://crontab.guru/">Crontab Guru</a></div>
 	<h2>Cronjobs</h2>
 	<div class="form-group">
 		<label for="env_vars">Environment Variables:</label>
@@ -38,8 +36,8 @@
 	<a class="btn btn-warning" onclick="import_db()"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Import From File</a>
 	<a class="btn btn-warning" href="<%= JSON.parse(routes).export %>"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export To File</a>
 	<!--<a class="btn btn-info" onclick="import_crontab()"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Import from crontab</a>-->
-	<a class="btn btn-success" onclick="getCrontab();"><span class="glyphicon glyphicon-open" aria-hidden="true"></span> Import from system crontab</a>
-	<a class="btn btn-success" onclick="setCrontab();"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save to system crontab</a>
+	<a class="btn btn-success" onclick="getCrontab();"><span class="glyphicon glyphicon-open" aria-hidden="true"></span> Import From System crontab</a>
+	<a class="btn btn-success" onclick="setCrontab();"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save To System crontab</a>
 	<br/>
 	<br/>
 
@@ -110,11 +108,30 @@
 
 </tbody>
 	</table>
+        <h2>How This Works</h2>
+        <div style="text-align: left;"><a target="_blank" href="https://www.adminschoice.com/crontab-quick-reference">Crontab Reference</a></div>
+        <div style="text-align: left;"><a target="_blank" href="https://crontab.guru/">Tool for Checking Crontab Timing Syntax</a></div>
+        <p>
+        <p></p>
+        <strong>cron:</strong> The server runs a program called cron that is responsible for running scheduled tasks. Every minute, the cron program wakes up and checks the crontab ("<strong>cron tab</strong>le") file for tasks to run at that moment. The crontab file is stored on the server's filesystem (e.g. at /var/spool/cron/ec2-user) and is typically accessed by running the command <span style="font-family:monospace">crontab -e</span> when ssh-ing into the machine. 
+        </p>
+        <p>
+        <strong>This Site:</strong> The site you're looking at right now is NOT the crontab, not exactly. This is a website served up by a small web application called crontab-ui that is running on the server. This application grabs the crontab and stashes copies of it in a directory on this machine (e.g. at /path/to/crontab-ui/crontabs/). You control the read/write of the actual crontab using the buttons above: "Import From System crontab"/"Save To System crontab".
+        </p>
+        <p>
+        <strong>Divergence:</strong> It's possible for the crontab-ui file to diverge from the crontab in a few ways:
+        </p>
+        <ul>
+            <li>You forget to hit "Save To System crontab" after making changes on the site</li>
+            <li>You ssh into the machine, make a change to crontab, and forget to "Import From System crontab"</li>
+        </ul>
+        <img src="crontab-ui-arch.png"/>
 </div>
 <% include popup.ejs %>
 <script>
    jQuery(function($) {
    	$('#main_table').DataTable({
+                pageLength:25,
    		order: [1, 'asc'],
    		columns: [
    			{orderable: false},
