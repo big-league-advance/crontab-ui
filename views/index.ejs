@@ -111,7 +111,7 @@
                                                 <% } %>
 
                                     </span></td>
-                                    <td><span style="cursor:pointer" data-html="true" data-toggle="tooltip" data-placement="bottom" title="<%= 'NEXT: ' + crontab.next + '<br>(Reload Page to Refresh)' %>"><%= crontab.schedule %></span></td>
+                                    <td><span style="cursor:pointer" data-html="true" data-toggle="tooltip" data-placement="bottom" title="<%= 'Next UTC: ' + crontab.next + '<br>(Reload Page to Refresh)' %>"><%= crontab.schedule %></span></td>
 				<td style="width:20%" title="<%= crontab.timestamp %>">
                                     <%= moment(new Date(crontab.timestamp)).fromNow() %>
                                     <% if (crontab.name) { %>
