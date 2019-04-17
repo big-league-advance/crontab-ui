@@ -9,6 +9,8 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="<%= JSON.parse(routes).root %>">Crontab UI</a>
+      <span><strong>Browser: </strong><span id="time_browser"></span></span>
+      <span><strong>UTC: </strong><span id="time_utc"></span></span>
       <a style="margin-top:8px;" class="btn btn-info" onclick="doBackup();"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Create Backup</a>
     </div>
 
