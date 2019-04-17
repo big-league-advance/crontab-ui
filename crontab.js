@@ -63,6 +63,23 @@ exports.crontabs = function(callback){
 				docs[i].next = "Next Reboot";
 			else
 				docs[i].next = cron_parser.parseExpression(docs[i].schedule).next().toString();
+
+                        var scriptContent = "";
+                        var scriptFound = false;
+
+                        try {
+                            scriptContent = fs.readFileSync(docs[i].command, 'utf8');
+                            scriptFound = true;
+                            scriptContent = '<p style="text-align:left;">' + scriptContent.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</p>';
+                        }
+                        catch (err) {
+                            scriptFound = false;
+                            scriptContent = "No script found!"
+                        }
+
+                        docs[i].scriptContent = scriptContent;
+                        docs[i].scriptFound = scriptFound;
+
 		}
 		callback(docs);
 	});
